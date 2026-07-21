@@ -1,24 +1,39 @@
-name: HTML Pipeline
+name: Deploy HTML Website
 
 on:
   push:
     branches:
       - main
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
-    steps:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
-      - name: Checkout Repository
+    steps:
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Print Message
-        run: echo "Pipeline Started"
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
 
-      - name: Show Files
-        run: ls
+      - name: Upload Website
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
 
-      - name: Build Successful
-        run: echo "Website Build Completed"
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
