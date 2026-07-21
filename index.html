@@ -1,525 +1,427 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CloudDeploy - GitHub Actions CI/CD Demo</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CloudMart - Modern Landing Page</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-        html {
-            scroll-behavior: smooth;
-        }
+<style>
 
-        body {
-            background: #0f172a;
-            color: white;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
 
-        .container {
-            width: 90%;
-            max-width: 1250px;
-            margin: auto;
-        }
+body{
+    background:#f7f8fc;
+    color:#222;
+}
 
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: #0b1220ee;
-            backdrop-filter: blur(12px);
-            z-index: 999;
-        }
+header{
+    background:#fff;
+    box-shadow:0 2px 12px rgba(0,0,0,.08);
+    position:sticky;
+    top:0;
+    z-index:100;
+}
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 75px;
-        }
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
 
-        .logo {
-            font-size: 28px;
-            font-weight: 800;
-            color: #ff9900;
-        }
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    height:75px;
+}
 
-        nav ul {
-            display: flex;
-            gap: 35px;
-            list-style: none;
-        }
+.logo{
+    font-size:28px;
+    font-weight:700;
+    color:#ff6b00;
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            transition: .3s;
-        }
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:25px;
+}
 
-        nav a:hover {
-            color: #ff9900;
-        }
+nav a{
+    text-decoration:none;
+    color:#333;
+    font-weight:500;
+}
 
-        .btn {
-            padding: 14px 28px;
-            background: #ff9900;
-            color: #111;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 700;
-            display: inline-block;
-            transition: .3s;
-        }
+.btn{
+    background:#ff6b00;
+    color:white;
+    padding:12px 22px;
+    border-radius:6px;
+    text-decoration:none;
+}
 
-        .btn:hover {
-            transform: translateY(-4px);
-        }
+.hero{
+    padding:70px 0;
+}
 
-        .hero {
-            padding-top: 140px;
-            padding-bottom: 90px;
-        }
+.hero-content{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:40px;
+    flex-wrap:wrap;
+}
 
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
+.hero-text{
+    flex:1;
+}
 
-        .hero h1 {
-            font-size: 56px;
-            line-height: 1.2;
-            margin-bottom: 25px;
-        }
+.hero-text h1{
+    font-size:52px;
+    margin-bottom:20px;
+}
 
-        .hero p {
-            font-size: 18px;
-            line-height: 1.8;
-            color: #cbd5e1;
-            margin-bottom: 35px;
-        }
+.hero-text p{
+    color:#666;
+    line-height:1.8;
+    margin-bottom:25px;
+}
 
-        .hero img {
-            width: 100%;
-            border-radius: 18px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, .45);
-        }
+.hero-image{
+    flex:1;
+}
 
-        .section {
-            padding: 90px 0;
-        }
+.hero-image img{
+    width:100%;
+    border-radius:15px;
+}
 
-        .section-title {
-            text-align: center;
-            font-size: 42px;
-            margin-bottom: 18px;
-        }
+.section{
+    padding:70px 0;
+}
 
-        .section-subtitle {
-            text-align: center;
-            color: #cbd5e1;
-            max-width: 700px;
-            margin: auto;
-            margin-bottom: 55px;
-            line-height: 1.8;
-        }
+.title{
+    text-align:center;
+    font-size:36px;
+    margin-bottom:15px;
+}
 
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 25px;
-        }
+.subtitle{
+    text-align:center;
+    color:#666;
+    margin-bottom:45px;
+}
 
-        .card {
-            background: #1e293b;
-            padding: 30px;
-            border-radius: 15px;
-            transition: .3s;
-        }
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
 
-        .card:hover {
-            transform: translateY(-8px);
-            background: #26364f;
-        }
+.card{
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    text-align:center;
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+    transition:.3s;
+}
 
-        .card h3 {
-            margin: 20px 0;
-        }
+.card:hover{
+    transform:translateY(-8px);
+}
 
-        .card p {
-            color: #cbd5e1;
-            line-height: 1.7;
-        }
+.card i{
+    font-size:45px;
+    color:#ff6b00;
+    margin-bottom:15px;
+}
 
-        .icon {
-            font-size: 50px;
-        }
+.card h3{
+    margin-bottom:10px;
+}
 
-        .workflow {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            margin-top: 40px;
-        }
+.card p{
+    color:#666;
+}
 
-        .step {
-            background: #172033;
-            padding: 30px;
-            border-radius: 12px;
-            text-align: center;
-        }
+.products{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
 
-        .step h2 {
-            font-size: 38px;
-            color: #ff9900;
-            margin-bottom: 15px;
-        }
+.product{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 8px 15px rgba(0,0,0,.08);
+}
 
-        .showcase {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            align-items: center;
-        }
+.product img{
+    width:100%;
+}
 
-        .showcase img {
-            width: 100%;
-            border-radius: 18px;
-        }
+.product-info{
+    padding:18px;
+}
 
-        .showcase h2 {
-            font-size: 40px;
-            margin-bottom: 20px;
-        }
+.price{
+    color:#ff6b00;
+    font-weight:bold;
+    margin-top:10px;
+}
 
-        .showcase p {
-            line-height: 1.9;
-            color: #cbd5e1;
-            margin-bottom: 20px;
-        }
+.cta{
+    background:#ff6b00;
+    color:white;
+    text-align:center;
+    padding:70px 20px;
+}
 
-        .cta {
-            background: linear-gradient(135deg, #ff9900, #ffbf5f);
-            color: #111;
-            padding: 70px 40px;
-            text-align: center;
-            border-radius: 20px;
-        }
+.cta h2{
+    font-size:40px;
+    margin-bottom:15px;
+}
 
-        .cta h2 {
-            font-size: 42px;
-            margin-bottom: 20px;
-        }
+.cta p{
+    margin-bottom:25px;
+}
 
-        .cta p {
-            max-width: 700px;
-            margin: auto;
-            line-height: 1.8;
-            margin-bottom: 35px;
-        }
+footer{
+    background:#1d1d1d;
+    color:#bbb;
+    text-align:center;
+    padding:30px;
+}
 
-        footer {
-            padding: 40px;
-            text-align: center;
-            color: #94a3b8;
-            border-top: 1px solid #22304d;
-            margin-top: 70px;
-        }
+@media(max-width:768px){
 
-        @media(max-width:900px) {
+.hero-content{
+flex-direction:column;
+text-align:center;
+}
 
-            .hero-grid {
-                grid-template-columns: 1fr;
-            }
+.hero-text h1{
+font-size:38px;
+}
 
-            .hero h1 {
-                font-size: 42px;
-            }
+nav ul{
+display:none;
+}
 
-            nav ul {
-                display: none;
-            }
+}
 
-        }
-    </style>
+</style>
 
 </head>
 
 <body>
 
-    <header>
+<header>
 
-        <div class="container">
+<div class="container">
 
-            <nav>
+<nav>
 
-                <div class="logo">CloudDeploy</div>
+<div class="logo">CloudMart</div>
 
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Solutions</a></li>
-                    <li><a href="#">Pricing</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
+<ul>
+<li><a href="#">Home</a></li>
+<li><a href="#">Shop</a></li>
+<li><a href="#">Categories</a></li>
+<li><a href="#">About</a></li>
+<li><a href="#">Contact</a></li>
+</ul>
 
-                <a href="#" class="btn">Get Started</a>
+<a href="#" class="btn">Sign Up</a>
 
-            </nav>
+</nav>
 
-        </div>
+</div>
 
-    </header>
+</header>
 
-    <section class="hero">
+<section class="hero">
 
-        <div class="container">
+<div class="container">
 
-            <div class="hero-grid">
+<div class="hero-content">
 
-                <div>
+<div class="hero-text">
 
-                    <h1>Deploy Websites Automatically Using GitHub Actions</h1>
+<h1>Shop Smarter with CloudMart</h1>
 
-                    <p>
+<p>
 
-                        Experience a modern Continuous Integration and Continuous Deployment
-                        workflow. Push your code to GitHub and let automation build,
-                        test, and deploy your applications without manual effort.
+Discover premium gadgets, accessories, fashion and more.
+Fast delivery, secure payment and amazing offers every day.
 
-                        Perfect for HTML, CSS, JavaScript, Python, Node.js,
-                        Docker, Next.js and cloud-native projects.
+</p>
 
-                    </p>
+<a href="#" class="btn">Shop Now</a>
 
-                    <a href="#" class="btn">Launch Demo</a>
+</div>
 
-                </div>
+<div class="hero-image">
 
-                <div>
+<img src="https://picsum.photos/600/400?random=5" alt="Shopping">
 
-                    <img src="https://picsum.photos/700/500?random=1">
+</div>
 
-                </div>
+</div>
 
-            </div>
+</div>
 
-        </div>
+</section>
 
-    </section>
+<section class="section">
 
-    <section class="section">
+<div class="container">
 
-        <div class="container">
+<h2 class="title">Shop by Category</h2>
 
-            <h2 class="section-title">Why Choose CloudDeploy?</h2>
+<p class="subtitle">
+Everything you need in one place.
+</p>
 
-            <p class="section-subtitle">
+<div class="grid">
 
-                Everything you need to automate your software delivery pipeline
-                from source code to production.
+<div class="card">
+<i class="fa-solid fa-laptop"></i>
+<h3>Electronics</h3>
+<p>Laptops, Mobiles, Accessories</p>
+</div>
 
-            </p>
+<div class="card">
+<i class="fa-solid fa-shirt"></i>
+<h3>Fashion</h3>
+<p>Trending styles for everyone</p>
+</div>
 
-            <div class="cards">
+<div class="card">
+<i class="fa-solid fa-couch"></i>
+<h3>Furniture</h3>
+<p>Modern home collection</p>
+</div>
 
-                <div class="card">
+<div class="card">
+<i class="fa-solid fa-headphones"></i>
+<h3>Accessories</h3>
+<p>Latest gadgets & audio</p>
+</div>
 
-                    <div class="icon">⚡</div>
+</div>
 
-                    <h3>Fast CI Pipeline</h3>
+</div>
 
-                    <p>
+</section>
 
-                        Automatically build every commit using GitHub Actions runners.
+<section class="section">
 
-                    </p>
+<div class="container">
 
-                </div>
+<h2 class="title">Featured Products</h2>
 
-                <div class="card">
+<div class="products">
 
-                    <div class="icon">🚀</div>
+<div class="product">
 
-                    <h3>Instant Deployment</h3>
+<img src="https://picsum.photos/300/220?random=10">
 
-                    <p>
+<div class="product-info">
 
-                        Deploy your static websites directly after successful builds.
+<h3>Wireless Headphones</h3>
 
-                    </p>
+<p>Premium sound quality.</p>
 
-                </div>
+<div class="price">$99</div>
 
-                <div class="card">
+</div>
 
-                    <div class="icon">🔒</div>
+</div>
 
-                    <h3>Secure Workflow</h3>
+<div class="product">
 
-                    <p>
+<img src="https://picsum.photos/300/220?random=11">
 
-                        Use encrypted secrets and protected branches for enterprise security.
+<div class="product-info">
 
-                    </p>
+<h3>Gaming Laptop</h3>
 
-                </div>
+<p>High performance laptop.</p>
 
-                <div class="card">
+<div class="price">$999</div>
 
-                    <div class="icon">☁️</div>
+</div>
 
-                    <h3>Cloud Ready</h3>
+</div>
 
-                    <p>
+<div class="product">
 
-                        Deploy to GitHub Pages, AWS, Azure, DigitalOcean or any cloud platform.
+<img src="https://picsum.photos/300/220?random=12">
 
-                    </p>
+<div class="product-info">
 
-                </div>
+<h3>Smart Watch</h3>
 
-            </div>
+<p>Track your fitness easily.</p>
 
-        </div>
+<div class="price">$199</div>
 
-    </section>
+</div>
 
-    <section class="section">
+</div>
 
-        <div class="container">
+<div class="product">
 
-            <h2 class="section-title">CI/CD Workflow</h2>
+<img src="https://picsum.photos/300/220?random=13">
 
-            <div class="workflow">
+<div class="product-info">
 
-                <div class="step">
+<h3>Wireless Speaker</h3>
 
-                    <h2>1</h2>
+<p>Crystal clear sound.</p>
 
-                    <h3>Push Code</h3>
+<div class="price">$149</div>
 
-                    <p>Developer pushes latest code to GitHub.</p>
+</div>
 
-                </div>
+</div>
 
-                <div class="step">
+</div>
 
-                    <h2>2</h2>
+</div>
 
-                    <h3>Build</h3>
+</section>
 
-                    <p>GitHub Actions creates a fresh runner.</p>
+<section class="cta">
 
-                </div>
+<h2>Big Summer Sale</h2>
 
-                <div class="step">
+<p>Get up to 50% OFF on selected products.</p>
 
-                    <h2>3</h2>
+<a href="#" class="btn" style="background:white;color:#ff6b00;">Explore Deals</a>
 
-                    <h3>Test</h3>
+</section>
 
-                    <p>Automated scripts validate the application.</p>
+<footer>
 
-                </div>
+<p>© 2026 CloudMart. All Rights Reserved.</p>
 
-                <div class="step">
-
-                    <h2>4</h2>
-
-                    <h3>Deploy</h3>
-
-                    <p>Website is published automatically.</p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <section class="section">
-
-        <div class="container">
-
-            <div class="showcase">
-
-                <img src="https://picsum.photos/650/500?random=2">
-
-                <div>
-
-                    <h2>Modern Cloud Infrastructure</h2>
-
-                    <p>
-
-                        Scale your applications with automated deployment pipelines,
-                        integrated source control, secure authentication,
-                        real-time build logs and zero manual deployment steps.
-
-                    </p>
-
-                    <p>
-
-                        Designed for developers learning DevOps,
-                        GitHub Actions, Docker, AWS and cloud computing.
-
-                    </p>
-
-                    <a href="#" class="btn">Explore Platform</a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <section class="section">
-
-        <div class="container">
-
-            <div class="cta">
-
-                <h2>Start Your CI/CD Journey Today</h2>
-
-                <p>
-
-                    Push your first commit and watch your deployment pipeline
-                    run automatically. Learn GitHub Actions by building
-                    real-world cloud projects.
-
-                </p>
-
-                <a href="#" class="btn">View Documentation</a>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <footer>
-
-        © 2026 CloudDeploy Demo • Built for GitHub Actions CI/CD Demonstration
-
-    </footer>
+</footer>
 
 </body>
-
 </html>
