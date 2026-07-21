@@ -1,0 +1,24 @@
+name: HTML Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Print Message
+        run: echo "Pipeline Started"
+
+      - name: Show Files
+        run: ls
+
+      - name: Build Successful
+        run: echo "Website Build Completed"
